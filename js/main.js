@@ -1,15 +1,11 @@
 // global puzzle settings
-var GRID_SIZE_W = 3;    // also, the number of colors
+var GRID_SIZE_W = 1;    // also, the number of colors
 var GRID_SIZE_H = 3;    // also, the number of shapes
 var DIFFICULTY = 1;     // 0 for jr, 1 for sr, 2 for master
 
 // global interface settings
-var globalSettingAutoSelect = "n";    // c for color, s for shape, n for none
 var globalIsDarkBackground = false;
-var globalIsAutosavePuzzle = false;
 var globalIsAutosaveSettings = false;
-// if the puzzle has been solved, and a new puzzle has not been generated yet, we do not want to save the puzzle!
-var globalDoNotSave = false;
 
 // these are for the buttons
 var globalSelectedColor = '0';
@@ -18,7 +14,7 @@ var globalSelectedDelete = false;
 
 // the grid
 var globalPlayerGrid;
-var globalSolutionGrid;
+var globalSolution;
 var globalClues = [];
 var globalScaleFactor = 1;
 
@@ -54,28 +50,6 @@ window.onload = function()
             break;
     }
 
-    // autoselect
-    c = getCookie("autosel");
-    switch(c)
-    {
-        case 'c':
-            document.getElementById("autosel-color").checked = true;
-            globalSettingAutoSelect = "c";
-            break;
-
-        case 's':
-            document.getElementById("autosel-shape").checked = true;
-            globalSettingAutoSelect = "s";
-            break;
-
-        // default to neither
-        default:
-
-            document.getElementById("autosel-off").checked = true;
-            globalSettingAutoSelect = "n";
-            break;
-    }
-
     // width and height
     c = getCookie("width");
     if(Number(c) >= 2 && Number(c) <= 5)
@@ -85,16 +59,6 @@ window.onload = function()
     else
     {
         document.getElementById("size-w").value = 3;
-    }
-
-    c = getCookie("height");
-    if(Number(c) >= 2 && Number(c) <= 5)
-    {
-        document.getElementById("size-h").value = Number(c);
-    }
-    else
-    {
-        document.getElementById("size-h").value = 3;
     }
 
     // dark mode
@@ -111,17 +75,6 @@ window.onload = function()
         document.getElementById("dark-background-option").checked = false;
     }
     
-    // autosave
-    c = getCookie("autosave-puzzle");
-    if(c === "true")
-    {
-        globalIsAutosavePuzzle = true;
-        document.getElementById("autosave-puzzle-option").checked = true;
-    }
-    else
-    {
-        document.getElementById("autosave-puzzle-option").checked = false;
-    }
     
     c = getCookie("autosave-settings");
     if(c === "true")
@@ -135,24 +88,9 @@ window.onload = function()
     }
 
 
-    // now that we've loaded the settings, let's generate a puzzle
-    // but first, let's see if we can load a puzzle!
-    // first we try to load a puzzle from the url
-    if(!loadPuzzleFromURL())
-    {
-        // if that fails, we try to load from the cookies
-        c = getCookie("saved-clues");
-        if(c !== "")
-        {
-            loadPuzzleFromCookies();
-        }
-        else
-        {
-            // if that fails, we generate a new puzzle
-            clearPlayerGrid();
-            generatePuzzle();
-        }
-    }
+    // if that fails, we generate a new puzzle
+    clearPlayerGrid();
+    generatePuzzle();
     
     // this is how we detect an unload on mobile browsers
     // we save on unload
@@ -174,10 +112,13 @@ document.onbeforeunload = function()
 
 
 // this is called when you click the modal
-function modalAction()
+function modalAction(name, generate)
 {
-    document.getElementById("modal-display").style.display = "none";
-    generatePuzzle();
+    document.getElementById(name).style.display = "none";
+    if(generate !== undefined)
+    {
+        generatePuzzle();
+    }
 }
 
 
@@ -191,7 +132,6 @@ window.onresize = function()
         {
             globalScaleFactor = determineScale();
             setupButtonsHTML(globalScaleFactor);
-            setupCluesHTML(globalScaleFactor);
             setupGridHTML(true, globalScaleFactor);
         }, 250);
 };

@@ -100,11 +100,6 @@ function setDifficulty(x)
     DIFFICULTY = x;
 }
 
-function setAutosel(x)
-{
-    globalSettingAutoSelect = x;
-}
-
 function setSettingsAutosave()
 {
     if(globalIsAutosaveSettings)
@@ -121,25 +116,6 @@ function setSettingsAutosave()
     }
 }
 
-function setPuzzleAutosave()
-{
-    if(globalIsAutosavePuzzle)
-    {
-        globalIsAutosavePuzzle = false;
-        if(getCookie("saved-clues") !== "")
-        {
-            setCookie("saved-clues", "", 0);
-            setCookie("saved-grid", "", 0);
-        }
-        setCookie("autosave-puzzle", "", 0);
-    }
-    else
-    {
-        globalIsAutosavePuzzle = true;
-        setCookie("autosave-puzzle", globalIsAutosavePuzzle, 1000);
-    }
-}
-
 
 // saving the settings using cookies
 function saveSettings()
@@ -147,28 +123,15 @@ function saveSettings()
     setCookie("difficulty", DIFFICULTY, 1000);
     
     setCookie("width", document.getElementById("size-w").value, 1000);
-    setCookie("height", document.getElementById("size-h").value, 1000);
     
     setCookie("dark-mode", globalIsDarkBackground, 1000);
-    
-    setCookie("autosel", globalSettingAutoSelect, 1000);
-    
-    setCookie("autosave-puzzle", globalIsAutosavePuzzle, 1000);
     setCookie("autosave-settings", globalIsAutosaveSettings, 1000);
 }
 
 
 // autosave function
 function saveEverything()
-{
-    if(globalIsAutosavePuzzle)
-    {
-        if(!globalDoNotSave)
-        {
-            savePuzzleToCookies();
-        }
-    }
-    
+{    
     if(globalIsAutosaveSettings)
     {
         saveSettings();

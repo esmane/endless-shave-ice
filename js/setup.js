@@ -56,7 +56,7 @@ function setupButtonsHTML(scale)
     scale = Math.max(scale, 40);
     // html time
     var toAppend = "";
-    for(let i = 0; i < GRID_SIZE_W; i++)
+    for(let i = 0; i < GRID_SIZE_H; i++)
     {
         toAppend += "<button id='c-";
         toAppend += i;

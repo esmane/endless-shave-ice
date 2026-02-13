@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>arrange the night away</title>
+        <title>taste the night away</title>
 
         <link rel="icon" href="icons/icon.png">
         <link rel="apple-touch-icon" href="icons/icon-big.png">
@@ -16,20 +16,17 @@
         <script src="js/main.js"></script>
         <script src="js/setup.js"></script>
         <script src="js/util.js"></script>
-        <script src="js/load.js"></script>
         <script src="js/interface/grid.js"></script>
         <script src="js/interface/buttons.js"></script>
         <script src="js/interface/menu.js"></script>
         <script src="js/generator/generate.js"></script>
-        <script src="js/solver/solverutil.js"></script>
-        <script src="js/solver/solver.js"></script>
     </head>
 
     <body>
         <!-- header -->
         <div id="header">
             <div id="header-center">
-                <h1 id="main-header">endless bento</h1>
+                <h1 id="main-header">endless shave ice</h1>
             </div>
             <div id="header-right">
                 <button id="play-button" class="selected-ui-button" onclick="openMenu('n')">
@@ -73,12 +70,10 @@
             
             <h3>puzzle size</h3>
             <div class="settings-block">
-                <label for="size-w">width</label><br>
-                <label for="size-h">height</label><br>
+                <label for="size-w">number of flavors</label><br>
             </div>
             <div class="settings-block">
                 <input style="width:3em" type="number" id="size-w" name="size" min="2" max="5"><br>
-                <input style="width:3em" type="number" id="size-h" name="size" min="2" max="5"><br>
             </div>
             <br><br>
             
@@ -88,19 +83,6 @@
             </div>
             <div class="settings-block">
                 <input type="checkbox" id="dark-background-option" onchange="setBackground()"><br>
-            </div>
-            <br><br>
-            
-            <h3>autoselect mode</h3>
-            <div class="settings-block">
-                <label for="autosel-color">Color</label><br>
-                <label for="autosel-shape">Shape</label><br>
-                <label for="autosel-off">Neither</label><br>
-            </div>
-            <div class="settings-block">
-                <input type="radio" id="autosel-color" name="autoselect" onclick="setAutosel('c')"><br>
-                <input type="radio" id="autosel-shape" name="autoselect" onclick="setAutosel('s')"><br>
-                <input type="radio" id="autosel-off" name="autoselect" onclick="setAutosel('n')"><br>
             </div>
             <br><br>
             
@@ -120,17 +102,17 @@
         
         <div id="help" class="menu-class">
             <h2>how to play</h2>
-            <p>Your goal is to fill the grid with tiles in such a way that all the clues are satisfied and every tile is different (no shape-color combination appears more than once). The clues show you select portions of the solution. You have to use logic to deduce where exactly in the grid each clues goes.</p>
-            <p>A clue may tell you the shape of a square, the color of a square, or both. Empty squares in a clue must be part of the grid, but they could be anything.</p><br>
+            <p>Your goal is to guess Big Island Mike's favorite flavor of shave ice!</p>
+            <p>After creating a shave ice flavor combination, Big Island Mike will tell you how many of the flavors in the combination he likes. Get them all right and he will tell you his name for the flavor combination!</p>
+            <p>The correct flavor combination will not include the same flavor more than once.</p><br>
             
             <h2>controls</h2>
-            <p>You select the tile you want to place by using the buttons below the grid. Instead of having a different button for every single possible tile, you select the color and shape that you want separately. You place tiles by clicking on the grid. Depending on the "autoselect mode" that you have set (under settings) the game may select a new color or shape automatically after you place a tile. You can delete a tile from the grid by right-clicking on it, and there is also a delete button in case you are playing on a touchscreen and can't right-click. Although each shape-color combination is only going to be used once in solving the puzzle, the game does not check this for you and you can (incorrectly) place multiple of the same tile.</p><br>
+            <p>You select the flavor you want to place by using the buttons below the grid. Each flavor possiblity is represented by a color and a shape. Instead of having a different button for every single possible flavor, you select the color and shape compoment of the flavor separately. You place flavors by clicking on the grid. When you think you've got the correct combination, click the "Let's have it!" button to serve your creation to Big Island Mike. Mike will then tell you if he likes the flavor or not.</p><br>
         
             <h2>explanations for the settings</h2>
-            <p><b>difficulty:</b> This is how you tweak the difficulty of the generated puzzles. Changing this setting does not affect the current puzzle and will apply starting with the next puzzle generated.</p>
-            <p><b>puzzle size:</b> You can change the size of the puzzle independently of the difficulty level. Both the width and height have a maximum value of 5 and a minimum value of 2, so you can generate any size puzzle between 2x2 and 5x5. If you enter an invalid number into one of these fields it will get rounded to the nearest allowed size when the next puzzle is generated. Like with the last option a change here will not affect the current puzzle.</p>
+            <p><b>difficulty:</b> This is how you tweak the difficulty of the generated puzzles. Beware: In master mode, Big Island Mike is not messing around. It will take an experienced shave ice connoisseur to guess correctly.</p>
+            <p><b>puzzle size:</b> You can change the number of flavors in the correct combination.</p>
             <p><b>dark background:</b> When this is checked you get a dark background. If your browser is set to prefer dark pages this will default to being checked.</p>
-            <p><b>autoselect mode:</b> With this you can change what happens after a tile is placed. "Color" (or "Shape") will cause the next color (or shape) in line to become selected automatically whenever a tile is placed. "Neither" disables this behavior.</p>
             <p><b>autosave puzzle:</b> When this is checked your puzzle will automatically save when the site is closed, and reload the next time you open the site. This feature uses cookies, and the cookies that save your puzzle are set to expire after 180 days. Unchecking this box will clear the saved puzzle data.</p>
             <p><b>save settings:</b> This saves all the above settings using cookies so your settings will stay when you close and reopen the page. If the <b>autosave settings</b> option is checked the settings will save automatically when the site is closed. If it isn't checked, then you must press the button to have your settings be saved.</p>
         </div>
@@ -138,9 +120,9 @@
         
         <div id="about" class="menu-class">
             <h2>about</h2>
-            <p>It's a clone of the bento puzzle minigame from <i>Nancy Drew: Shadow at the Water's Edge</i>. I haven't seen this type of puzzle anywhere else so I made a browser version that generates its own puzzles. Have fun!</p>
-            <p style="text-align:center"><a href="https://esmane.github.io/endless-bento-classic/">endless bento classic</a></p>
-            <p style="text-align:center"><a target="_blank" href="https://github.com/esmane/endless-bento">source code</a></p>
+            <p>It's a clone of the shave ice minigame from <i>Nancy Drew: The Creature of Kapu Cave</i>. I haven't seen this type of puzzle anywhere else so I made a browser version that generates its own puzzles. Have fun!</p>
+            <p style="text-align:center"><a href="https://esmane.github.io/endless-bento?fool=false">take me back to bento</a></p>
+            <p style="text-align:center"><a target="_blank" href="https://github.com/esmane/endless-shave-ice">source code</a></p>
             <p style="text-align:center"><a target="_blank" href="https://forms.gle/fBSUgqvWfwco1JiJ6">feedback/suggestions</a></p>
         </div>
         
@@ -149,7 +131,9 @@
         <!-- the game itself -->
         <div id="left-side" class="main-element">
             <div id="clues" class="clue-block">
-                <!-- clues will go here -->
+                <button id="serve-button" class="ui-button" onclick="guessFlavor()">
+                    <h1>"Let's have it!"</h1>
+                </button>
             </div>
         </div>
 
@@ -166,12 +150,67 @@
         </div>
         
         <!-- modal dialog (appears when a puzzle is solved) -->
-        <div class="modal" id="modal-display" style="display:none">
+        <div class="modal" id="modal-display-none" style="display:none">
             <div class="overlay"></div>
             <div class="modal-content">
-                <h2>Congratulations!</h2>
-                <h3>You solved the puzzle!</h3><br>
-                <button id="modal-button" onclick="modalAction()">
+                <h2>Mike says:</h2>
+                <h3>Nope. I don't like any of those flavors.</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-none')">
+                    try again
+                </button>
+            </div>
+        </div>
+        
+        <div class="modal" id="modal-display-one" style="display:none">
+            <div class="overlay"></div>
+            <div class="modal-content">
+                <h2>Mike says:</h2>
+                <h3>I only like one of those flavors.</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-one')">
+                    ok
+                </button>
+            </div>
+        </div>
+        
+        <div class="modal" id="modal-display-two" style="display:none">
+            <div class="overlay"></div>
+            <div class="modal-content">
+                <h2>Mike says:</h2>
+                <h3>You got two of the flavors right.</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-two')">
+                    try again
+                </button>
+            </div>
+        </div>
+        
+        <div class="modal" id="modal-display-three" style="display:none">
+            <div class="overlay"></div>
+            <div class="modal-content">
+                <h2>Mike says:</h2>
+                <h3>I like three of those flavors, but not all of them.</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-three')">
+                    try again
+                </button>
+            </div>
+        </div>
+        
+        <div class="modal" id="modal-display-four" style="display:none">
+            <div class="overlay"></div>
+            <div class="modal-content">
+                <h2>Mike says:</h2>
+                <h3>Almost! You got four of the flavors right.</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-four')">
+                    try again
+                </button>
+            </div>
+        </div>
+        
+        <div class="modal" id="modal-display-win" style="display:none">
+            <div class="overlay"></div>
+            <div class="modal-content">
+                <h2>Mike says:</h2>
+                <h3>You did it! That was my favorite flavor combination!</h3><br>
+                <button id="modal-button" onclick="modalAction('modal-display-win', true)">
                     new puzzle
                 </button>
             </div>
