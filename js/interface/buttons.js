@@ -54,33 +54,24 @@ function checkDelete()
 // additionally we can set to delete mode, and we have the function that sets that in here as well.
 function setColor(color, force)
 {
-    // if we click the currently selected color, and we are not in delete mode, unset the  color
-    if(globalSelectedColor === color && globalSelectedDelete === false && force === undefined)
+    // set previously selected button to grey
+    if(globalSelectedDelete)
     {
-        setButton(COLOR, false);
-        globalSelectedColor = 'x';
+        // if delete was selected we want to do two things: set the shape and unset the x
+        setButton(DELETE, false);
+        setButton(SHAPE, true);
+            
+        globalSelectedDelete = false;
     }
     else
     {
-        // set previously selected button to grey
-        if(globalSelectedDelete)
-        {
-            // if delete was selected we want to do two things: set the shape and unset the x
-            setButton(DELETE, false);
-            setButton(SHAPE, true);
-            
-            globalSelectedDelete = false;
-        }
-        else
-        {
-            // otherwise we need to unset the previously selected color
-            setButton(COLOR, false);
-        }
-
-        // now set the new selected color and style it to highlighted
-        globalSelectedColor = color;
-        setButton(COLOR, true);
+        // otherwise we need to unset the previously selected color
+        setButton(COLOR, false);
     }
+
+    // now set the new selected color and style it to highlighted
+    globalSelectedColor = color;
+    setButton(COLOR, true);
     
     checkDelete();
 }
@@ -88,33 +79,24 @@ function setColor(color, force)
 
 function setShape(shape, force)
 {
-    // if we click the currently selected shape, and we are not in delete mode, unset the shape
-    if(globalSelectedShape === shape && globalSelectedDelete === false && force === undefined)
+    // set previously selected button to grey
+    if(globalSelectedDelete)
     {
-        setButton(SHAPE, false);
-        globalSelectedShape = 'x';
+        // if delete was selected we want to do two things: set the color and unset the x
+        setButton(DELETE, false);
+        setButton(COLOR, true);
+            
+        globalSelectedDelete = false;
     }
     else
     {
-        // set previously selected button to grey
-        if(globalSelectedDelete)
-        {
-            // if delete was selected we want to do two things: set the color and unset the x
-            setButton(DELETE, false);
-            setButton(COLOR, true);
-            
-            globalSelectedDelete = false;
-        }
-        else
-        {
-            // otherwise we need to unset the previously selected shape
-            setButton(SHAPE, false);
-        }
-
-        // now set the new selected shape and style it to highlighted
-        globalSelectedShape = shape;
-        setButton(SHAPE, true);
+        // otherwise we need to unset the previously selected shape
+        setButton(SHAPE, false);
     }
+
+    // now set the new selected shape and style it to highlighted
+    globalSelectedShape = shape;
+    setButton(SHAPE, true);
     
     // oh, and one more thing
     checkDelete();
