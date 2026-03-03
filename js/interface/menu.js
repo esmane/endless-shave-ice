@@ -72,6 +72,7 @@ function setBackground()
         document.getElementById("help-button").style.color = "#ffffff";
         document.getElementById("about-button").style.color = "#ffffff";
         document.getElementById("restart-button").style.color = "#ffffff";
+        document.getElementById("serve-button").style.color = "#ffffff";
 
         document.body.style.color = "#ffffff";
         globalIsDarkBackground = true;
@@ -87,6 +88,7 @@ function setBackground()
         document.getElementById("help-button").style.color = "#000000";
         document.getElementById("about-button").style.color = "#000000";
         document.getElementById("restart-button").style.color = "#000000";
+        document.getElementById("serve-button").style.color = "#000000";
 
         document.body.style.color = "#000000";
         globalIsDarkBackground = false;
