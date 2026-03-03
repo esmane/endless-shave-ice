@@ -44,8 +44,12 @@ function setTile(x, y)
     var toSetColor = 'x';
     var toSetShape = 'x';
     
+    var curSetColor = globalPlayerGrid[x][y].charAt(0);
+    var curSetShape = globalPlayerGrid[x][y].charAt(2);
+    
     // if not set delete
-    if(!globalSelectedDelete)
+    // if the tile is already equal to what we are about to set it to, that also counts as a delete
+    if((globalSelectedShape !== curSetShape || globalSelectedColor !== curSetColor) && !globalSelectedDelete)
     {
         if(globalSelectedColor !== 'x' && globalSelectedShape !== 'x')
         {
@@ -58,13 +62,13 @@ function setTile(x, y)
             // set only shape
             toSetShape = globalSelectedShape;
             
-            if(globalPlayerGrid[x][y].charAt(2) === globalSelectedShape)
+            if(curSetShape === globalSelectedShape)
             {
                 toSetColor = 'x';
             }
             else
             {
-                toSetColor = globalPlayerGrid[x][y].charAt(0);
+                toSetColor = curSetColor;
             }
         }
         else if(globalSelectedColor !== 'x')
@@ -72,13 +76,13 @@ function setTile(x, y)
             // set only shape
             toSetColor = globalSelectedColor;
             
-            if(globalPlayerGrid[x][y].charAt(0) === globalSelectedColor)
+            if(curSetColor === globalSelectedColor)
             {
                 toSetShape = 'x';
             }
             else
             {
-                toSetShape = globalPlayerGrid[x][y].charAt(2);
+                toSetShape = curSetShape;
             }
         }   
     }
@@ -88,6 +92,56 @@ function setTile(x, y)
     document.getElementById(x + '-' + y).src = "./tiles/" + globalPlayerGrid[x][y] + ".png";
     document.getElementById(x + '-' + y).alt = globalPlayerGrid[x][y];
 
+    // check if the puzzle has been solved
+    if(equal(globalPlayerGrid, globalSolutionGrid))
+    {
+        // display the modal window
+        document.getElementById("modal-display").style.display = "block";
+        
+        // clear the saved puzzle if it exists
+        setCookie("saved-clues", "", 0);
+        setCookie("saved-grid", "", 0);
+        globalDoNotSave = true;
+    }
+
+    // at this point we are done setting the grid. the rest of this function is cycling through the selection options
+    // cycle through the different tile selections depending on the setting and if we are currently on delete (don't cycle delete)
+    if(globalSelectedColor !== 'x' && globalSelectedShape !== 'x' && globalSelectedDelete === false)
+    {
+        switch(globalSettingAutoSelect)
+        {
+        // shape
+        case 's':
+            // the number of possible shapes is dependent on the grid height (because non-square grids are valid)
+            if(Number(globalSelectedShape) < GRID_SIZE_H - 1)
+            {
+                setShape(String(Number(globalSelectedShape) + 1));
+            }
+            else
+            {
+                setShape('0');
+            }
+            break;
+
+        // color
+        case 'c':
+            // the number of possible shapes is dependent on the grid width (because non-square grids are valid)
+            if(Number(globalSelectedColor) < GRID_SIZE_W - 1)
+            {
+                setColor(String(Number(globalSelectedColor) + 1));
+            }
+            else
+            {
+                setColor('0');
+            }
+            break;
+
+        // default
+        default:
+            break;
+
+        }
+    }
 }
 
 
